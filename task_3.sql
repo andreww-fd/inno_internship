@@ -78,12 +78,11 @@ with t1 as (select * from film
 	join category on film_category.category_id = category.category_id
 	join inventory on film.film_id = inventory.film_id),
 
-with t2 as (select * from rental
+t2 as (select * from rental
 	join customer on rental.customer_id = customer.customer_id
 	join address on customer.address_id = address.address_id
 	join city on address.city_id = city.city_id
-	where city.city like 'A%' or city.city like '%-%')
-	select * from t2,
+	where city.city like 'A%' or city.city like '%-%'),
 
 t3 as (select t2.city, t1.name, count(t1.name) as num_of_films from t1
 	join t2 on t1.inventory_id = t2.inventory_id
